@@ -3,7 +3,7 @@ import { ProductsController } from './controllers/products.controller';
 import { TokenAuthGuard } from 'src/common/guards/token-auth.guard';
 import { HttpModule } from '@nestjs/axios';
 import { ProductsService } from './services/products.service';
-import { PubSubModule } from './pubsub..module';
+import { PubSubModule } from './pubsub.module';
 
 @Module({
   imports: [HttpModule, PubSubModule],

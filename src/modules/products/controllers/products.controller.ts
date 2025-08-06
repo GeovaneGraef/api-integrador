@@ -25,13 +25,11 @@ export class ProductsController {
     name: 'token',
     description: 'Token de autenticação',
     required: true,
-    example: 'sad321asd321a32s1d321a',
   })
   @ApiBody({ type: ProductDto })
   @UseGuards(TokenAuthGuard)
-  async createProducts(@Body(new ValidationPipe()) productData: ProductDto) {
-    // Se a validação passar, o body da requisição está tipado
-    await this.productsService.sendDataMessages(productData);
+  async createProducts(@Body(new ValidationPipe()) productData: ProductDto[]) {
+    await this.productsService.testConnection('test-2025-08-06-0ce73f65-7fe7-4630-8d31-a0570fd92c55');
     return productData;
   }
 
@@ -40,7 +38,6 @@ export class ProductsController {
     name: 'token',
     description: 'Token de autenticação',
     required: true,
-    example: 'sad321asd321a32s1d321a',
   })
   @ApiHeader({
     name: 'idMessage',
@@ -58,7 +55,8 @@ export class ProductsController {
       throw new BadRequestException('Header "idMessage" é obrigatório');
     }
 
-    const data = await this.productsService.getProductsMessage();
+    //const data = await this.productsService.getProductsMessage();
+    const data = null;
     return data;
   }
 }
