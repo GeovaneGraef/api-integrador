@@ -14,11 +14,15 @@ import { TokenAuthGuard } from 'src/common/guards/token-auth.guard';
 import { ProductDto } from '../dtos/product.dto';
 import { ProductsService } from '../services/products.service';
 import { ApiBody, ApiHeader } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('wsemsys/redesim/produto')
 export class ProductsController {
   private readonly logger = new Logger(ProductsController.name);
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Put()
   @ApiHeader({
@@ -29,7 +33,7 @@ export class ProductsController {
   @ApiBody({ type: ProductDto })
   @UseGuards(TokenAuthGuard)
   async createProducts(@Body(new ValidationPipe()) productData: ProductDto[]) {
-    await this.productsService.testConnection('test-2025-08-06-0ce73f65-7fe7-4630-8d31-a0570fd92c55');
+    await this.productsService.testConnection(this.configService.get<string>('TOPIC_NAME_PUBSUB'));
     return productData;
   }
 

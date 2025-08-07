@@ -14,9 +14,9 @@ export class ProductsService {
     this.logger.log(`PubSub client ready.`);
   }
 
-  async testConnection(topicName: string): Promise<void> {
+  async testConnection(topicName): Promise<void> {
     const message = {
-      testMessage: 'Teste NestJS',
+      testMessage: 'Test NestJS',
       timestamp: new Date().toISOString(),
     };
 
